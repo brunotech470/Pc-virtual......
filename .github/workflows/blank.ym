@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEXUS Virtual PC</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ color:white;
+ height:100vh;
+ overflow:hidden;
+ background:linear-gradient(135deg,#07152f,#143c78,#682d91);
+}
+.desktop{padding:15px;display:grid;grid-template-columns:90px 90px;gap:15px}
+.icon{
+ text-align:center;padding:10px;
+ cursor:pointer;border-radius:10px;
+ background:#ffffff12;
+}
+.icon:hover{background:#ffffff30}
+.icon span{font-size:32px;display:block}
+.taskbar{
+ position:absolute;bottom:0;width:100%;height:55px;
+ display:flex;justify-content:center;align-items:center;gap:12px;
+ background:#101827dd;backdrop-filter:blur(15px);
+}
+button{cursor:pointer;border:0;border-radius:10px;padding:10px;background:#ffffff20;color:white}
+.window{
+ display:none;position:absolute;top:15%;left:5%;width:90%;
+ background:#17243bee;border:1px solid #ffffff40;
+ border-radius:15px;overflow:hidden;box-shadow:0 15px 40px #0008;
+}
+.header{padding:12px;background:#263b5c;display:flex;justify-content:space-between}
+.content{padding:20px}
+</style>
+</head>
+
+<body>
+
+<div class="desktop">
+<div class="icon" onclick="openWindow('pc')"><span>🖥️</span>Meu PC</div>
+<div class="icon" onclick="openWindow('files')"><span>📁</span>Arquivos</div>
+<div class="icon" onclick="openWindow('notes')"><span>📝</span>Notas</div>
+<div class="icon" onclick="openWindow('games')"><span>🎮</span>Games</div>
+<div class="icon" onclick="openWindow('browser')"><span>🌐</span>Internet</div>
+<div class="icon" onclick="openWindow('settings')"><span>⚙️</span>Config.</div>
+</div>
+
+<div class="window" id="pc">
+<div class="header">Meu PC <button onclick="closeWindow('pc')">✕</button></div>
+<div class="content">
+<h2>💻 NEXUS PC</h2>
+<p>Computador virtual demonstrativo</p>
+<p>Memória: Virtual</p>
+<p>Armazenamento: Simulado</p>
+</div>
+</div>
+
+<div class="window" id="files">
+<div class="header">Arquivos <button onclick="closeWindow('files')">✕</button></div>
+<div class="content">
+📁 Documentos<br><br>
+📁 Downloads<br><br>
+📁 Imagens<br><br>
+📁 Jogos
+</div>
+</div>
+
+<div class="window" id="notes">
+<div class="header">Bloco de notas <button onclick="closeWindow('notes')">✕</button></div>
+<div class="content">
+<textarea id="note" style="width:100%;height:180px"></textarea>
+<button onclick="saveNote()">Salvar</button>
+</div>
+</div>
+
+<div class="window" id="games">
+<div class="header">Games 🎮 <button onclick="closeWindow('games')">✕</button></div>
+<div class="content">
+<h2>Central Gamer</h2>
+<p>Seu painel de jogos NEXUS</p>
+</div>
+</div>
+
+<div class="window" id="browser">
+<div class="header">Internet <button onclick="closeWindow('browser')">✕</button></div>
+<div class="content">
+<button onclick="window.open('https://google.com')">Google</button>
+<button onclick="window.open('https://youtube.com')">YouTube</button>
+</div>
+</div>
+
+<div class="window" id="settings">
+<div class="header">Configurações <button onclick="closeWindow('settings')">✕</button></div>
+<div class="content">
+<button onclick="document.body.style.background='linear-gradient(135deg,#000,#333)'">Tema escuro</button>
+<button onclick="document.body.style.background='linear-gradient(135deg,#07152f,#143c78,#682d91)'">Tema RGB</button>
+</div>
+</div>
+
+<div class="taskbar">
+<button onclick="alert('Bem-vindo ao NEXUS PC!')">⊞ Iniciar</button>
+<button onclick="openWindow('browser')">🌐</button>
+<button onclick="openWindow('files')">📁</button>
+</div>
+
+<script>
+function openWindow(id){
+ document.querySelectorAll('.window').forEach(w=>w.style.display='none');
+ document.getElementById(id).style.display='block';
+}
+function closeWindow(id){
+ document.getElementById(id).style.display='none';
+}
+function saveNote(){
+ localStorage.setItem('nexus_note',document.getElementById('note').value);
+ alert('Nota salva!');
+}
+document.getElementById('note').value=
+ localStorage.getItem('nexus_note')||'';
+</script>
+
+</body>
+</html>
